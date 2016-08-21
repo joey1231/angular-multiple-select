@@ -70,7 +70,16 @@ angular.module("templates", []).run(["$templateCache", function($templateCache) 
                     };
 
                     scope.onBlur = function () {
-                        scope.isFocused=false;
+                        scope.isFocused = false;
+                        if (typeof scope.inputValue == 'undefined') {
+                            return;
+                        }
+                         var filteredSuggestionArr = $filter('filter')(scope.suggestionsArr, scope.inputValue);
+                             filteredSuggestionArr = $filter('filter')(filteredSuggestionArr, scope.alreadyAddedValues);
+                        var enterValue = { 'id': 0, 'name': scope.inputValue }
+                            filteredSuggestionArr.push(enterValue);
+                            scope.onSuggestedItemsClick(filteredSuggestionArr[filteredSuggestionArr.length - 1]);
+                            
                     };
 
                     scope.onChange = function () {
@@ -109,8 +118,14 @@ angular.module("templates", []).run(["$templateCache", function($templateCache) 
                         else if(key == 'enter'){
                             var filteredSuggestionArr = $filter('filter')(scope.suggestionsArr, scope.inputValue);
                             filteredSuggestionArr = $filter('filter')(filteredSuggestionArr, scope.alreadyAddedValues);
-                            if(scope.selectedItemIndex < filteredSuggestionArr.length)
+                            if(scope.selectedItemIndex < filteredSuggestionArr.length){
                                 scope.onSuggestedItemsClick(filteredSuggestionArr[scope.selectedItemIndex]);
+                            }else{
+                                var enterValue = { 'id': 0, 'name': scope.inputValue }
+                                filteredSuggestionArr.push(enterValue);
+                                scope.onSuggestedItemsClick(filteredSuggestionArr[filteredSuggestionArr.length - 1]);
+
+                            }
                         }
                     };
 
