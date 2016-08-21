@@ -74,12 +74,14 @@ angular.module("templates", []).run(["$templateCache", function($templateCache) 
                         if (typeof scope.inputValue == 'undefined') {
                             return;
                         }
+                        if(scope.inputValue != ''){
                          var filteredSuggestionArr = $filter('filter')(scope.suggestionsArr, scope.inputValue);
                              filteredSuggestionArr = $filter('filter')(filteredSuggestionArr, scope.alreadyAddedValues);
+                        
                         var enterValue = { 'id': 0, 'name': scope.inputValue }
                             filteredSuggestionArr.push(enterValue);
                             scope.onSuggestedItemsClick(filteredSuggestionArr[filteredSuggestionArr.length - 1]);
-                            
+                         }   
                     };
 
                     scope.onChange = function () {
