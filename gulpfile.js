@@ -81,3 +81,10 @@ gulp.task('serve', ['inject', 'watch'] , function() {
 		port:5000
     });
 });
+gulp.task('default', ['compile']);
+gulp.task('compile', function() {
+   gulp.src('./build/multiple-select.js')
+		.pipe(jsmin())
+		.pipe(rename({suffix: '.min'}))
+		.pipe(gulp.dest('./build/'));
+})
