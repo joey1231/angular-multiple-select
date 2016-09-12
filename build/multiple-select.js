@@ -76,22 +76,23 @@ angular.module("templates", []).run(["$templateCache", function($templateCache) 
                         }
                         if(scope.inputValue != ''){
                               var reg = new RegExp("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$");
-                         if (reg.test(scope.inputValue)) {
+                                 if (reg.test(scope.inputValue)) {
 
-                                var filteredSuggestionArr = $filter('filter')(scope.suggestionsArr, scope.inputValue);
-                                filteredSuggestionArr = $filter('filter')(filteredSuggestionArr, scope.alreadyAddedValues);
-                                var enterValue = { 'id': 0, 'name': scope.inputValue, 'number': scope.inputValue, 'type': 'number' }
-                                filteredSuggestionArr.push(enterValue);
-                                scope.onSuggestedItemsClick(filteredSuggestionArr[filteredSuggestionArr.length - 1]);
-                        }else {
-                             if(scope.isAttendant == true &&  scope.attendantSelected == false){
+                                        var filteredSuggestionArr = $filter('filter')(scope.suggestionsArr, scope.inputValue);
+                                        filteredSuggestionArr = $filter('filter')(filteredSuggestionArr, scope.alreadyAddedValues);
+                                        var enterValue = { 'id': 0, 'name': scope.inputValue, 'number': scope.inputValue, 'type': 'number' }
+                                        filteredSuggestionArr.push(enterValue);
+                                        scope.onSuggestedItemsClick(filteredSuggestionArr[filteredSuggestionArr.length - 1]);
+                                }else {
+                                     if(scope.isAttendant == true &&  scope.attendantSelected == false){
 
-                                 scope.inputValue = ''
-                             }else{
-                                    scope.inputValue = ''
-                             }
-                               
-                                    // alert('Invalid contact')
+                                         scope.inputValue = ''
+                                     }else{
+                                            scope.inputValue = ''
+                                     }
+                                       
+                                            // alert('Invalid contact')
+                                }
                         } 
                        
                     };
