@@ -74,41 +74,26 @@ angular.module("templates", []).run(["$templateCache", function($templateCache) 
                         if (typeof scope.inputValue == 'undefined') {
                             return;
                         }
-                        if (scope.inputValue.trim() != '') {
-                            var reg = new RegExp("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$");
-
-                            var emailReg = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                            if (reg.test(scope.inputValue) && scope.isConference != true) {
+                        if(scope.inputValue != ''){
+                              var reg = new RegExp("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$");
+                         if (reg.test(scope.inputValue)) {
 
                                 var filteredSuggestionArr = $filter('filter')(scope.suggestionsArr, scope.inputValue);
                                 filteredSuggestionArr = $filter('filter')(filteredSuggestionArr, scope.alreadyAddedValues);
                                 var enterValue = { 'id': 0, 'name': scope.inputValue, 'number': scope.inputValue, 'type': 'number' }
                                 filteredSuggestionArr.push(enterValue);
                                 scope.onSuggestedItemsClick(filteredSuggestionArr[filteredSuggestionArr.length - 1]);
-                            } else if (emailReg.test(scope.inputValue) && scope.isConference == true) {
-                                var filteredSuggestionArr = $filter('filter')(scope.suggestionsArr, scope.inputValue);
-                                filteredSuggestionArr = $filter('filter')(filteredSuggestionArr, scope.alreadyAddedValues);
-                                var enterValue = { 'id': 0, 'name': scope.inputValue, 'number': scope.inputValue, 'type': 'email', 'email': scope.inputValue }
-                                filteredSuggestionArr.push(enterValue);
-                                scope.onSuggestedItemsClick(filteredSuggestionArr[filteredSuggestionArr.length - 1]);
-                            } else if (reg.test(scope.inputValue) && scope.isCoworker == true) {
-                                var filteredSuggestionArr = $filter('filter')(scope.suggestionsArr, scope.inputValue);
-                                filteredSuggestionArr = $filter('filter')(filteredSuggestionArr, scope.alreadyAddedValues);
-                                var enterValue = { 'id': 0, 'name': scope.inputValue, 'number': scope.inputValue, 'type': 'number' }
-                                filteredSuggestionArr.push(enterValue);
-                                scope.onSuggestedItemsClick(filteredSuggestionArr[filteredSuggestionArr.length - 1]);
-                            }else {
-                                 if(scope.isAttendant == true &&  scope.attendantSelected == false){
+                        }else {
+                             if(scope.isAttendant == true &&  scope.attendantSelected == false){
 
-                                        scope.inputValue = ''
-                                 }else{
+                                 scope.inputValue = ''
+                             }else{
                                     scope.inputValue = ''
-                                 }
+                             }
                                
                                     // alert('Invalid contact')
-                            }
-                           
-                        }  
+                        } 
+                       
                     };
 
                     scope.onChange = function () {
@@ -145,7 +130,7 @@ angular.module("templates", []).run(["$templateCache", function($templateCache) 
                             scope.isFocused=false;
                         }
                         else if(key == 'enter'){
-                             var filteredSuggestionArr = $filter('filter')(scope.suggestionsArr, scope.inputValue);
+                            var filteredSuggestionArr = $filter('filter')(scope.suggestionsArr, scope.inputValue);
                             filteredSuggestionArr = $filter('filter')(filteredSuggestionArr, scope.alreadyAddedValues);
                             if (scope.selectedItemIndex < filteredSuggestionArr.length) {
                                 scope.onSuggestedItemsClick(filteredSuggestionArr[scope.selectedItemIndex]);
